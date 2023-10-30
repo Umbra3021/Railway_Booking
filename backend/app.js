@@ -77,7 +77,7 @@ app.post("/search", async (req,res)=>{
     let destination =req.body.to;
     sources=source;
     destinations=destination;
-    const data = await availTrain(source,destination);
+    const data = await trains(source,destination);
     if(Object.keys(data).length!==0){
         res.send(data)
         console.log(data);
@@ -88,11 +88,6 @@ app.post("/search", async (req,res)=>{
         
     }   
     
-});
-
-app.get("/show",async(req,res)=>{
-    const data = await trains("bhubaneshwar","howrah");
-    console.log(data);
 });
 
 app.listen(5000,()=>{
