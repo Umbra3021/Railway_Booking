@@ -6,11 +6,10 @@ app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json());
 
-var i=9;
+// var i=14;
 const conn = mysql.createPool({host:'127.0.0.1',user:'root',password:'kiit',database:'railway'}).promise();
 
-var sources="Puri",destinations="Howrah";
-
+var sources,destinations;
 async function trains(source,destination){
     const [rows] = await conn.query(`select * from train inner join coaches on Train.trainNO=coaches.trainNo WHERE Train.source= ? AND
     Train.destination =?`,[sources,destinations]);
@@ -25,8 +24,8 @@ async function availTrain(source,destination){
 
 async function insertUser(name,email,password){
     try{
-        const insert=await conn.query(`INSERT into customer values(?,?,?,?)`,[i,name,email,password]);
-        i++;
+        var id=null;
+        const insert=await conn.query(`INSERT into customers values(?,?,?,?)`,[,name,email,password]);
         return true;
     }
     catch(err){
@@ -40,6 +39,26 @@ async function findUser(username,password){
         const [rows] = await conn.query(`select * from customer where CustomerName = ?`,[username]);
         return rows;
     }
+    catch(err){
+        console.log(err);
+    }
+}
+
+async function booking (seat,train){
+    try{
+        const [row] = await conn.query(`select ${seat} from coaches where trainNo= ?`,[train]);
+        const rows = row[0];
+        var value=0;
+        for (const key in rows) {
+            value = rows[key];
+          }
+          value=value-1;
+          console.log(value);
+
+
+          const [update] = await conn.query(`update coaches SET ${seat} = ? where trainNo = ?`,[value,train]);
+     }
+
     catch(err){
         console.log(err);
     }
@@ -67,20 +86,38 @@ app.post("/login",async(req,res)=>{
         username,
         password
     } 
-    res.json({status:true})
+
+    if(Object.keys(data).length!==0){
+        res.json({status:true,user})
+    }
+    else{
+        res.status(404).json({err:"Incorrect Credentials",status:false});
+    }
+    
+})
+
+app.post("/form",async (req,res)=>{
+
+    let s = req.body.from;
+    console.log(s);
+    let d= req.body.to;
+    sources = s;
+    destinations = d;
+    const data = await availTrain(sources,destinations);
+    if(Object.keys(data).length!==0){
+        res.status(200).json({msg:"Showing results",status:true});
+    }
+    else{
+        res.status(404).json({err:"No available train",status:false});
+    }
+
 })
 
 
-app.post("/search", async (req,res)=>{
-    
-    let source = req.body.from;
-    let destination =req.body.to;
-    sources=source;
-    destinations=destination;
-    const data = await trains(source,destination);
+app.get("/search", async (req,res)=>{
+    const data = await trains(sources,destinations);
     if(Object.keys(data).length!==0){
         res.send(data)
-        console.log(data);
     }
     else{
         console.log("No available trains");
@@ -89,6 +126,22 @@ app.post("/search", async (req,res)=>{
     }   
     
 });
+
+app.post("/booking",async (req,res)=>{
+    
+    const {seat_type,tr,user_info}= req.body;
+    console.log(user_info);
+    const data = {
+        name:user_info.username,
+        email:user_info.email,
+        train:tr,
+        seat:seat_type
+    }
+    // booking(seat_type,tr);
+    console.log(data);
+    res.send(data);
+
+})
 
 app.listen(5000,()=>{
     console.log("Server is up") 
