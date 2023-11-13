@@ -6,6 +6,12 @@ app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json());
 
+let data = {};
+
+
+
+
+
 // var i=14;
 const conn = mysql.createPool({host:'127.0.0.1',user:'root',password:'kiit',database:'railway'}).promise();
 
@@ -128,20 +134,23 @@ app.get("/search", async (req,res)=>{
 });
 
 app.post("/booking",async (req,res)=>{
-    
     const {seat_type,tr,user_info}= req.body;
-    console.log(user_info);
-    const data = {
+    data = {
         name:user_info.username,
         email:user_info.email,
         train:tr,
         seat:seat_type
     }
-    // booking(seat_type,tr);
-    console.log(data);
-    res.send(data);
 
 })
+
+app.get("/get_booking", async (req, res) => {
+    data = {...data, roll: 17};
+    res.send(data)
+    console.log("inside get booking");
+})
+
+
 
 app.listen(5000,()=>{
     console.log("Server is up") 
