@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,6 +33,16 @@ function Login() {
     }
   };
 
+  const check = async () => {
+    if (localStorage.getItem("User")!==null) {
+      nav("/search");
+    }
+  };
+
+  useEffect(()=>{
+    check();
+  },[])
+
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
@@ -45,7 +55,9 @@ function Login() {
         username,
         password,
       });
+      console.log(data);
       if (data.status === true) {
+        localStorage.setItem("User",JSON.stringify(data.user));
         nav("/search");
       }
       if (data.status === false) {

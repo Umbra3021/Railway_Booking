@@ -143,7 +143,7 @@ const Container = styled.div`
       font-size: 50px;
     }
     img {
-      border-radius: 1rem;
+      border-radius: 1rem 0 0 1rem;
     }
   }
   form {
@@ -152,7 +152,7 @@ const Container = styled.div`
     gap: 2rem;
     background-color: #00000076;
     padding: 3rem 5rem;
-    border-radius: 1rem;
+    border-radius: 0 1rem 1rem 0;
     input {
       background-color: transparent;
       padding: 1rem;
