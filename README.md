@@ -1,13 +1,13 @@
 # Railway_Booking
 Creating a Demo of the India Railway Ticket booking in a renovative style 
 
-Login & Register completed (DB autoincremented yet to be implemented)
+Login & Register completed 
 
-search page implemented and returns data (styling yet to be applied)
+search page implemented and returns data 
 
-train list display not yet implemented
+train list display implemented
 
-booking display not yet implemented
+booking display implemented
 
-customer transaction history not yet implemented
+customer transaction history implemented
 
