@@ -16,33 +16,28 @@ nav {
 .logo h1 {
   font-size: 3rem;
   letter-spacing: 0.9rem;
-
-  color: aliceblue;
-  transition: 0.45s linear;
-
+  transition: 0.45s ease-out;
 }
-
-
 
 .logo h1:hover {
   color: red;
   cursor: pointer;
+  letter-spacing: 1.5rem;
 }
 
 ul {
   list-style: none;
   display: flex;
-  min-width: 14rem;
+  min-width: 18rem;
+  gap:15px;
   font-size: 1.5rem;
   justify-content: space-around;
   align-items: center;
   color: white;
-  gap: 1rem;
 }
 
 li {
   transition: all 0.45s;
-  padding: 0 1rem;
 }
 
 ul li:hover {
@@ -55,7 +50,6 @@ ul li:hover {
   font-size: 1.5rem;
   transition: 0.45s all;
   list-style: none;
-  padding: 0 1rem;
 }
 
 .logout:hover {
@@ -63,6 +57,16 @@ ul li:hover {
   color: red;
 }
 
-.active {
-  color: red;
+::-webkit-scrollbar {
+  width: 0.2rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
 }

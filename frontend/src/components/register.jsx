@@ -80,7 +80,7 @@ function Register() {
           <form>
             <input
               type="text"
-              placeholder="UserName"
+              placeholder="User Name"
               name="username"
               autoComplete="off"
               onChange={handlechange}
@@ -121,7 +121,7 @@ function Register() {
 }
 
 const Container = styled.div`
-  height: 100vh;
+  height: 100dvh; ///
   /* width: 100vw; */
   display: flex;
   flex-direction: column;

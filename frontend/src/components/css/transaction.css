@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse; /* Prevents double borders */
+}
+
+th, td {
+  padding: 0.75rem 1.5rem; /* Adds spacing within each cell */
+  text-align: center;
+}
+
+td {
+  border-bottom: 1px solid #ddd; /* Optional: Adds a line to separate rows */
+}
+
+.transaction-item {
+  border: 1px solid #ddd;
+  padding: 1.5rem; /* Adds padding for a longer appearance */
+  margin-bottom: 1.5rem;
+  
+  width: 100%; /* Or use a specific width if needed, e.g., 80% */
+  max-width: 1000px; /* Increased max-width to make it visually longer */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for depth */
+}

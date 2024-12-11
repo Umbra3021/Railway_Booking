@@ -8,6 +8,20 @@ app.use(express.json());
 
 
 
+const now = new Date();
+
+// Get current date in YYYY-MM-DD format
+const date = now.toISOString().split("T")[0]; // YYYY-MM-DD
+
+// Get current time in HH:MM:SS format
+const time = now.toTimeString().split(" ")[0]; // HH:MM:SS
+
+console.log(`Current Date: ${date}`);
+console.log(`Current Time: ${time}`);
+const dateTimeString = `${date}@${time}`;
+
+
+
 const conn = mysql.createPool({host:'127.0.0.1',user:'root',password:'kiit',database:'railway'}).promise();
 
 var sources,destinations;
@@ -110,6 +124,8 @@ app.post("/register",async (req,res)=>{
     }
 })
 
+var custID = 0;
+
 app.post("/login",async(req,res)=>{
     const{username,password} = req.body;
     var data = await findUser(username,password);
@@ -118,6 +134,8 @@ app.post("/login",async(req,res)=>{
         username:data[0].CustomerName,
         email:data[0].CustomerEmail
     } 
+
+    custID = data[0].ID;
 
     if(Object.keys(data).length!==0){
         res.json({status:true,user})
@@ -163,6 +181,8 @@ var berth;
 
 app.post("/booking",async (req,res)=>{
     const {seat_type,tr,user_info}= req.body;
+    const custID = user_info.Id;
+    const custEmail = user_info.email;
     berth = await booking(seat_type,tr);
     var journey = await journey_details(tr);
     x = {
@@ -178,6 +198,12 @@ app.post("/booking",async (req,res)=>{
         seatno:berth
     }
     console.log(x);
+    
+    const [query] = await conn.query(`INSERT into transaction value(?,?,?,?,?,?,?,?,?,?,?,?)`,
+    [,custID,custEmail,tr,journey[0].TraiName,journey[0].Source,journey[0].Destination,
+    journey[0].DepartureTime,journey[0].ArrivalTime,seat_type,berth,dateTimeString]);
+
+     
 
 })
 
@@ -186,6 +212,16 @@ app.get("/get_booking", async (req, res) => {
     res.send(x)
 })
 
+app.post("/transaction",async(req,res) =>{
+
+    const {customer} =req.body;
+    const userData = JSON.parse(customer);
+    const ID = userData.Id;
+    console.log(ID);
+    const [data] = await conn.query(`select * from transaction WHERE CustomerID = ?`,[ID]);
+    res.send(data);
+
+})
 
 
 

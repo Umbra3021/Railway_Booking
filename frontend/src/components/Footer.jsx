@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Footer = () => {
   return (
     <Wrapper>
-      <h4>2023 TCKT. All rights reserved.</h4>
+      <h4>2024 TCKT. All rights reserved.</h4>
       <h4> Contact Us | About Us</h4>
     </Wrapper>
   );

@@ -1,4 +1,4 @@
-import "./Navbar.css";
+import "./css/Navbar.css";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="logo">
-        <h1>TCKT</h1>
+        <h1 style={{color:"white"}}>TCKT</h1>
       </div>
 
       {!localStorage.getItem("User") ? (
@@ -28,15 +28,33 @@ const Navbar = () => {
           </li>
         </ul>
       ) : (
-        <li
-          className="logout"
-          onClick={() => {
-            localStorage.removeItem("User");
-            nav("/login");
-          }}
-        >
-          Logout
-        </li>
+        <ul>
+          <li
+            className="logout"
+            onClick={() => {
+              nav("/search");
+            }}
+          >
+            Home
+          </li>
+          <li
+            className="logout"
+            onClick={() => {
+              localStorage.removeItem("User");
+              nav("/login");
+            }}
+          >
+            Logout
+          </li>
+          <li
+            className="logout"
+            onClick={() => {
+              nav("/transactions");
+            }}
+          >
+            Transactions
+          </li>
+        </ul>
       )}
     </nav>
   );

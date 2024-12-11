@@ -4,3 +4,5 @@ export { default as Home } from "./home";
 export { default as Trains } from "./Trains";
 export { default as Booking } from "./Booking";
 export { default as Base } from "./Base";
+export { default as Transaction } from "./Transaction";
+export { default as Ticket } from "./tickets";

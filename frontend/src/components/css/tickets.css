@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  background-color: #131324;
+  color: white;
+  height: calc(100vh - 11rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h3 {
+  color: red;
+  font-size: 1.7rem;
+  letter-spacing: 0.7rem;
+}
+
+tr{
+  padding-left: 5rem;
+}
+
+table {
+  font-size: 1.4rem;
+}
